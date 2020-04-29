@@ -45,3 +45,21 @@
  	/* we used to just check HAVE_FTRUNCATE_EXTEND and only use
  	   sys_ftruncate if the system supports it. Then I discovered that
  	   you can have some filesystems that support ftruncate
+
+--- a/source3/include/includes.h	2015-02-22 22:11:32.000000000 +0800
++++ b/source3/include/includes.h	2020-04-30 00:55:40.319030000 +0800
+@@ -319,6 +319,14 @@ typedef sig_atomic_t volatile SIG_ATOMIC
+ #  endif
+ #endif
+ 
++#if defined(HAVE_LONGLONG)
++#define SMB_BIG_UINT unsigned long long
++#define SMB_BIG_INT long long
++#else
++#define SMB_BIG_UINT unsigned long
++#define SMB_BIG_INT long
++#endif
++
+ /* TODO: remove this macros */
+ #define SBIG_UINT(p, ofs, v) SBVAL(p, ofs, v)
+ #define BIG_UINT(p, ofs) BVAL(p, ofs)
